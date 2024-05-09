@@ -33,21 +33,22 @@ app.post("/crearTurno", async (req, res) => {
             
             if (collaboratorOutputResult==null){
                 //res.send("<h1>No Encontrado</h1>")
-                res.status(500).json({ success: false, message: "Datos de empleados incorrectos o no existe" });
+                res.json({ success: false, message: "Datos de empleados incorrectos o no existe!!" });
             }else{
                 //Obtener el ID de la workLocation
                 const collboratorId= collaboratorOutputResult.id 
                 const workLocationId = await getWorkLocation(endpoint,headers,API_TOKEN,departamento)
                 if (workLocationId==null){
                     //res.send("<h1>No existe departamento. Contactar con el administrador</h1>")
-                    res.status(500).json({ success: false, message: "No existe departamento. Contactar con el administrador" });
+                    res.json({ success: false, message: "No existe departamento. Contactar con el administrador!!" });
                 }else{
                     //Obtener el ID del proyecto a partir del ID del departamento (la relacion es 1-1)
                     console.log("ID - Función", funcion, "ID - Collaborator", collboratorId, "ID - Work Location",workLocationId )
                     const projectID = await getprojectID(departamento, endpoint,headers, API_TOKEN)
                     if (projectID ==null){
                         //res.send("<h1>No existe proyecto. Contactar con el administrador</h1>")
-                        res.status(500).json({ success: false, message: "No existe proyecto. Contactar con el administrador" });
+                        res.json({ success: false, message: "No existe proyecto. Contactar con el administrador!!" });
+                        
                     } else{
                         //console.log(collboratorId,workLocationId)
                         console.log("ID - Función", funcion, "ID - Collaborator", collboratorId, "ID - Work Location",workLocationId, "ID - proyecto",projectID  )
@@ -77,7 +78,7 @@ app.post("/crearTurno", async (req, res) => {
                         const teamID = await createTeam(projectID,endpoint,headers,API_TOKEN,bodyEquipo)
                         if (teamID ==null){
                             //res.send("<h1>Error al crear equipo</h1>")
-                            res.status(500).json({ success: false, message: "No se ha podido crear el turno." });
+                            res.json({ success: false, message: "No se ha podido crear el turno!!" });
                         }else{
                             console.log("ID - Función", funcion, "ID - Collaborator", collboratorId, "ID - Work Location",workLocationId, "ID - proyecto",projectID, "ID - Equipo", teamID  )
                             const bodyEnrolment ={
@@ -86,31 +87,16 @@ app.post("/crearTurno", async (req, res) => {
                                         "team_id": teamID,
                                     }
                             }
-                            console.log(bodyEnrolment)
+                            //console.log(bodyEnrolment)
                             const enrolment = await createEnrolment(endpoint,headers,bodyEnrolment,API_TOKEN)
-                            console.log(enrolment)
-                            //res.send(enrolment)
-                            // if (enrolment.team != null && enrolment.id != undefined) {
-                            //     console.log(enrolment,teamID)
-                            //     res.send(`<div class="alert alert-success" role="alert">
-                            //     Turno creado y trabajador asignado!
-                            // </div>`);
-                            // } else {
-                            //     // Elimina el equipo creado si la operación no fue exitosa
-                            //     const delTeam = await deleteTeam(endpoint,headers,API_TOKEN,teamID)
-                            //     res.send(`<div class="alert alert-danger" role="alert">
-                            //     Error al crear el turno
-                            // </div>`);
-                            // }
-                            // Cuando recibas una respuesta exitosa del servidor
-                            // Cuando recibas una respuesta exitosa del servidor
+                            //console.log(enrolment)
                             if (enrolment.team != null && enrolment.id != undefined) {
                                 // Envía una respuesta JSON indicando éxito
                                 res.json({ success: true, message: "Turno creado y trabajador asignado!" });
                             } else {
                                 // Envía una respuesta JSON indicando error
                                 const delTeam = await deleteTeam(endpoint, headers, API_TOKEN, teamID);
-                                res.status(500).json({ success: false, message: "El empleado ya tiene un turno asignado" });
+                                res.status(500).json({ success: false, message: "" });
                             }
 
                         }

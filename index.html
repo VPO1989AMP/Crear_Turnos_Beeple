@@ -89,33 +89,33 @@
     </script>
     <script>
         $(document).ready(function() {
-    $('#turnos').submit(function(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe automáticamente
-        
-        $.ajax({
-            url: '/crearTurno',
-            method: 'POST',
-            data: $(this).serialize(),
-            success: function(response) {
-                // Verifica si la operación fue exitosa o no
-                if (response.success) {
-                    // Si fue exitosa, muestra un mensaje de éxito
-                    $('#mensaje').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
-                } else {
-                    // Si hubo un error, muestra un mensaje de error
-                    $('#mensaje').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
-                // Muestra un mensaje de error genérico si la solicitud falla
-                $('#mensaje').html('<div class="alert alert-danger" role="alert">Error al procesar la solicitud</div>');
-            }
+            $('#turnos').submit(function(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+                
+                $.ajax({
+                    url: '/crearTurno',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Verifica si la operación fue exitosa o no
+                        if (response.success) {
+                            // Si fue exitosa, muestra un mensaje de éxito
+                            $('#mensaje').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
+                        } else {
+                            // Si hubo un error, muestra un mensaje de error
+                            $('#mensaje').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        // Muestra un mensaje de error genérico si la solicitud falla
+                        $('#mensaje').html('<div class="alert alert-danger" role="alert">Error al procesar la solicitud</div>');
+                    }
+                });
+            });
         });
-    });
-});
-
     </script>
+    
 
     
 </body>
