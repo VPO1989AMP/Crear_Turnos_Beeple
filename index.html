@@ -100,7 +100,14 @@
                         // Verifica si la operación fue exitosa o no
                         if (response.success) {
                             // Si fue exitosa, muestra un mensaje de éxito
-                            $('#mensaje').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
+                            //$('#mensaje').html('<div class="alert alert-success" role="alert">' + response.message + '</div>');
+                            $('#mensaje').html('<div class="alert alert-success" role="alert">'
+                            + '<h4 class="alert-heading">'+ response.message +'</h4>'
+                            + '<p>Un turno ha sido creado para el empleado. Ahora el empleado ya puede realizar un fichaje.</p>'
+                            + '<hr>'
+                            + '<p class="mb-0">Es importante avisar al gestor de operaciones para que no vuelva a ocurrir esta situación y el empleado siempre tenga turnos creado al venir a trabajar.</p>'
+                            + '</div>')
+
                         } else {
                             // Si hubo un error, muestra un mensaje de error
                             $('#mensaje').html('<div class="alert alert-danger" role="alert">' + response.message + '</div>');

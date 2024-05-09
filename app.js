@@ -96,7 +96,7 @@ app.post("/crearTurno", async (req, res) => {
                             } else {
                                 // Envía una respuesta JSON indicando error
                                 const delTeam = await deleteTeam(endpoint, headers, API_TOKEN, teamID);
-                                res.status(500).json({ success: false, message: "" });
+                                res.json({ success: false, message: "Centro incorrecto o El trabajador ya tiene turno asignado!!" });
                             }
 
                         }
@@ -106,10 +106,10 @@ app.post("/crearTurno", async (req, res) => {
                 }   
             }
         } catch (error) {
-            res.send(error);
+            res.json({ success: false, message: "Error de ejecución. Vuelva a intentarlo!" });
         }
     }else{
-        res.send("<h1>Contraseña inccorrecta")
+        res.json({ success: false, message: "Contraseña incorrecta" });
     }
 });
 
