@@ -20,7 +20,7 @@ app.post("/crearTurno", async (req, res) => {
     const departamento = parseFloat(req.body.proyecto);
     const funcion = parseFloat(req.body.funcion);
     const nombre = req.body.nombre;
-    const dninie = req.body.doc;
+    const dninie = req.body.doc.toUpperCase();
     const password = req.body.password;
     const headers = {
         'Content-Type': 'application/json',
